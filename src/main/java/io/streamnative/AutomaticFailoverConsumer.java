@@ -1,8 +1,8 @@
 package io.streamnative;
 
 import java.util.Collections;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.pulsar.client.api.Authentication;
@@ -12,12 +12,11 @@ import org.apache.pulsar.client.api.ServiceUrlProvider;
 import org.apache.pulsar.client.impl.AutoClusterFailover;
 import org.apache.pulsar.client.impl.auth.oauth2.AuthenticationFactoryOAuth2;
 
-import io.streamnative.data.DataGenerator;
+import io.streamnative.data.DataReceiver;
 
 import java.net.*;
 
-
-public class AutomaticFailoverDemo extends FailoverDemoBase {
+public class AutomaticFailoverConsumer extends FailoverDemoBase {
 	
     public PulsarClient getClient() throws PulsarClientException, MalformedURLException {
         if (client == null) {
@@ -36,7 +35,7 @@ public class AutomaticFailoverDemo extends FailoverDemoBase {
             ServiceUrlProvider failover = AutoClusterFailover.builder()
                     .primary(ACTIVE_BROKER_URL)
                     .secondary(Collections.singletonList(STANDBY_BROKER_URL))
-                    .failoverDelay(30, TimeUnit.SECONDS)
+                    .failoverDelay(20, TimeUnit.SECONDS)
                     .switchBackDelay(20, TimeUnit.SECONDS)
                     .checkInterval(1000, TimeUnit.MILLISECONDS)
                     .secondaryAuthentication(secondaryAuthentications)
@@ -52,8 +51,8 @@ public class AutomaticFailoverDemo extends FailoverDemoBase {
     }
 
     public static void main(String[] args) throws PulsarClientException, MalformedURLException {
-        AutomaticFailoverDemo demo = new AutomaticFailoverDemo();
-        DataGenerator generator = new DataGenerator(demo.getProducer(TOPIC_NAME));
-        generator.run();
+        AutomaticFailoverConsumer demo = new AutomaticFailoverConsumer();
+        DataReceiver receiver = new DataReceiver(demo.getConsumer(TOPIC_NAME, SUBSCRIPTION_NAME));
+        receiver.run();
     }
 }
