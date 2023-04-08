@@ -1,5 +1,8 @@
 package io.streamnative.data;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import org.apache.pulsar.client.api.Consumer;
 import org.apache.pulsar.client.api.Message;
 import org.apache.pulsar.client.api.PulsarClientException;
@@ -28,7 +31,8 @@ public class DataReceiver implements Runnable {
 			}
     		  try {
     		      // Do something with the message
-    		      System.out.println("Message received: " + new String(msg.getData()));
+    			  Date date = new Date();
+    		      System.out.println(new Timestamp(date.getTime()) + " Message received: " + new String(msg.getData()));
     		      // Acknowledge the message so that it can be deleted by the message broker
     		      consumer.acknowledge(msg);
     		  } catch (Exception e) {

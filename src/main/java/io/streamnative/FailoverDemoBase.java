@@ -10,7 +10,7 @@ public abstract class FailoverDemoBase {
     protected static final String TOPIC_NAME = "persistent://geo/ns/failover";
     protected static final String ACTIVE_BROKER_URL = "pulsar+ssl://test1-71796523-39de-44ba-8940-e452d69a54cd.use2-lion.aws.sn3.dev:6651";
     protected static final String STANDBY_BROKER_URL = "pulsar+ssl://xgdemo-4df16e69-c8fa-487d-9adf-71c22fe1dad6.use4-dog.g.sn3.dev:6651";
-    protected static final String SUBSCRIPTION_NAME = "demo_subscription";
+    protected static final String SUBSCRIPTION_NAME = "my_subscription";
 
     protected PulsarClient client;
     protected Producer<String> producer;

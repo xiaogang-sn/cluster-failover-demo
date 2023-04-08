@@ -7,6 +7,7 @@ import org.apache.pulsar.client.api.ServiceUrlProvider;
 import org.apache.pulsar.client.impl.ControlledClusterFailover;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -47,7 +48,7 @@ public class ControlledFailoverDemo extends FailoverDemoBase {
         return client;
     }
 
-    public static void main(String[] args) throws PulsarClientException {
+    public static void main(String[] args) throws PulsarClientException, MalformedURLException {
         ControlledFailoverDemo demo = new ControlledFailoverDemo();
         DataGenerator generator = new DataGenerator(demo.getProducer(TOPIC_NAME));
         generator.run();
